@@ -1,24 +1,26 @@
 #include "types.h"
+#include "print.h"
+#include "trap.h"
 
 extern uint8 __bss;
 extern uint8 __bss_end;
 extern uint8 __stack;
 
-void putchar(uint8 ch) {
-    asm volatile("li a6, 0");
-    asm volatile("li a7, 1");
-    asm volatile("mv a0, %0" : : "r"(ch));
-    asm volatile("li a2, 0");
-    asm volatile("ecall");
+void test_hypervisor() {
+    uint64 hstatus = 0;
+    hstatus |= 2 << 32;
+    hstatus |= 1 << 7;
+
+    uint64 sepc = 0x1234abcd;
+
+    asm volatile("csrw hstatus, %0" : : "r"(hstatus));
+    asm volatile("csrw sepc, %0" : : "r"(sepc));
+    asm volatile("sret");
 }
 
 int main() {
-
-    char test[] = "Hello World";
-
-    for(int i = 0; i <=10; i++) {
-        putchar(test[i]);
-    }
+    asm volatile("csrw stvec, %0" : : "r"((uint64)trap_handler));
+    test_hypervisor();
     while(1) {
 
     }

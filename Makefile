@@ -1,8 +1,8 @@
 CC=riscv64-unknown-elf-gcc
 CFLAGS=-g -mcmodel=medany -mno-relax -I. -ffreestanding
 
-DEPS=types.h
-OBJS= start.o main.o
+DEPS=types.h trap.h print.h
+OBJS= start.o main.o trap.o print.o
 
 hypervisor: $(OBJS) $(DEPS)
 	$(CC) $(CFLAGS) -c main.c
