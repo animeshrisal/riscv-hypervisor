@@ -3,3 +3,6 @@
 boot:
     la sp, __stack_top
     j main
+
+spin:
+    j spin

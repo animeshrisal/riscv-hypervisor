@@ -13,4 +13,27 @@ void print_string(char *str) {
     while(str[i] != '\0') {
         putchar(str[i++]);
     }
+    putchar('\n');
+
+}
+
+void print_hex(uint64 hex) {
+
+    int i;
+    char s;
+
+    putchar('0');
+    putchar('x');
+
+    for (i = 60; i >= 0; i -= 4) {        
+        int d = (hex >> i) & 0xF;
+        if (d < 10)
+            s = '0' + d;
+        else
+            s = 'a' + (d - 10);
+        putchar(s);
+    }
+
+    putchar('\n');
+
 }

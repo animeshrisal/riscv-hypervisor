@@ -19,8 +19,13 @@ void test_hypervisor() {
 }
 
 int main() {
-    asm volatile("csrw stvec, %0" : : "r"((uint64)trap_handler));
+    asm volatile("csrw stvec, %0" : : "r"(trap_handler));
+    print_hex((uint64)trap_handler);
+
+    volatile uint64 *uart = (volatile uint64*)0x88888888; // example address
+    print_hex((uint64)uart);
     test_hypervisor();
+
     while(1) {
 
     }

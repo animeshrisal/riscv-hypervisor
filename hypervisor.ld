@@ -26,6 +26,8 @@ SECTIONS {
     . += 1024 * 1024; /* 1MB */
     __stack_top = .;
 
+    PROVIDE(end = .);
+
     /DISCARD/ : {
         *(.eh_frame);
     }

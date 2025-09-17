@@ -1,1 +1,3 @@
-void trap_handler(void);
+#include "types.h"
+
+uint64 trap_handler(void);
