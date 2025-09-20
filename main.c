@@ -1,10 +1,13 @@
 #include "types.h"
 #include "print.h"
 #include "trap.h"
+#include "alloc.h"
 
 extern uint8 __bss;
 extern uint8 __bss_end;
 extern uint8 __stack;
+extern uint8 __heap;
+extern uint8 __heap_end; 
 
 void test_hypervisor() {
     uint64 hstatus = 0;
@@ -24,6 +27,17 @@ int main() {
 
     volatile uint64 *uart = (volatile uint64*)0x88888888; // example address
     print_hex((uint64)uart);
+
+    print_hex(__heap);
+    print_hex(__heap_end);    
+
+    paddr paddr0 = alloc_pages(1);
+    paddr paddr1 = alloc_pages(2);
+
+    print_hex(paddr0);    
+    print_hex(paddr1);    
+
+
     test_hypervisor();
 
     while(1) {

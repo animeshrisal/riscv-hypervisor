@@ -6,4 +6,6 @@ typedef unsigned short uint16;
 typedef unsigned int uint32;
 typedef unsigned long long int uint64;
 
+typedef uint64 paddr;
+
 #endif
