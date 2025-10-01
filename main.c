@@ -9,7 +9,13 @@ extern uint8 __stack;
 extern uint8 __heap;
 extern uint8 __heap_end; 
 
+extern const uint8 _binary_guest_kernel_guest_o_start;
+extern const uint8 _binary_guest_kernel_guest_o_end;
+
+
 void test_hypervisor() {
+
+    //Write comment here
     uint64 hstatus = 0;
     hstatus |= 2 << 32;
     hstatus |= 1 << 7;
@@ -28,16 +34,16 @@ int main() {
     volatile uint64 *uart = (volatile uint64*)0x88888888; // example address
     print_hex((uint64)uart);
 
-    print_hex(__heap);
-    print_hex(__heap_end);    
+    // print_hex(__heap);
+    // print_hex(__heap_end);    
 
     paddr paddr0 = alloc_pages(1);
     paddr paddr1 = alloc_pages(2);
 
+    uint64  guest_entry = 0x100000;
+
     print_hex(paddr0);    
     print_hex(paddr1);    
-
-
     test_hypervisor();
 
     while(1) {

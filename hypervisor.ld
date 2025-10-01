@@ -26,6 +26,10 @@ SECTIONS {
     . += 1024 * 1024; /* 1MB */
     __stack_top = .;
 
+    __heap = .;
+    . += 100 * 1024 * 1024; /* 100MB */
+    __heap_end = .;
+
     PROVIDE(end = .);
 
     /DISCARD/ : {
