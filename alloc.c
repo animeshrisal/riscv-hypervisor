@@ -9,26 +9,6 @@ extern char __heap_end[];
 
 static paddr next_paddr = (paddr) __heap;
 
-struct run {
-    struct run *next;
-};
-
-struct {
-    struct run *freelist;
-} kmem;
-
-void freerange(void *pa_start, void *pa_end) {
-    char *p;
-
-
-
-}
-
-
-void einit() {
-    
-}
-
 void* setmem(void *dst, int c, int n) {
     char *cdst = (char *) dst;
 
@@ -49,10 +29,4 @@ void* setmem(void *dst, int c, int n) {
 
     setmem((void *)next_paddr, 0, size * PGSIZE);
     return paddr;
-}
-
-void ealloc(uint16 size) {
-    uint16 totalSize;
-
-    
 }
