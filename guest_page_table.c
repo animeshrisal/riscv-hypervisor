@@ -29,29 +29,26 @@ uint64* entry_by_addr(Table *table, uint64 guest_paddr, uint8 level) {
 }
 
 uint64 create_table (uint64 guest_paddr, uint64 host_paddr, uint64 flags) {
+    
+    // Create a new table
     uint64 guest_table_ptr = alloc_pages(1);
-
+    uint64 new_table_ptr = guest_table_ptr;
     for(int i = 3; i > 0; i--) {
-        uint64 new_table_ptr = alloc_pages(1);
-        
-        uint64* entry = entry_by_addr((Table *)guest_table_ptr, guest_paddr, i);
+        uint64* entry = entry_by_addr((Table *)new_table_ptr, guest_paddr, i);
 
-        print_hex((uint64)entry);
         // uint64 new_entry = create_entry(new_table_ptr, PTE_V);
         if(is_valid(*entry)) {
             print_string("Is valid!");
         } else {
             print_string("Is not valid");
-            uint64 new_table_ptr = alloc_pages(1);
+            print_string("Creating new table....");
+            print_hex(new_table_ptr);
+            new_table_ptr = alloc_pages(1);
             *entry = create_entry(new_table_ptr, PTE_V);
         }
 
-        // guest_table_ptr = get_paddr(*entry);
-        // print_hex(guest_table_ptr);
 
     }
-
-
 }
 
 
