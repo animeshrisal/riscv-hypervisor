@@ -28,7 +28,7 @@ uint64* entry_by_addr(Table *table, uint64 guest_paddr, uint8 level) {
     return &table->entry[index];
 }
 
-uint64 create_table (uint64 guest_paddr, uint64 host_paddr, uint64 flags) {
+Table* create_table (uint64 guest_paddr, uint64 host_paddr, uint64 flags) {
     
     // Create a new table
     uint64 guest_table_ptr = alloc_pages(1);
@@ -49,6 +49,8 @@ uint64 create_table (uint64 guest_paddr, uint64 host_paddr, uint64 flags) {
 
 
     }
+
+    return (Table *)guest_table_ptr;
 }
 
 

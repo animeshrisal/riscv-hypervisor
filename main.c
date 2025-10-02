@@ -42,11 +42,11 @@ int main() {
     // print_hex(__heap_end);    
 
 
-    uint64  guest_entry = 0x100000;
+    uint64 guest_entry = 0x100000;
    
-    create_table(0x10000, 0x10000, PTE_R | PTE_W | PTE_X);
-
-    // print_hex(paddr0);    
+    Table* table = create_table(0x10000, 0x10000, PTE_R | PTE_W | PTE_X);
+    
+     print_hex((uint64) table);    
     // print_hex(paddr1);    
     // test_hypervisor();
 
