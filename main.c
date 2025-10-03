@@ -16,7 +16,7 @@ extern const uint8 _binary_guest_kernel_guest_o_end;
 
 void test_hypervisor() {
 
-    //Write comment here
+    // Set mode
     uint64 hstatus = 0;
     hstatus |= 2 << 32;
     hstatus |= 1 << 7;

@@ -46,9 +46,10 @@ Table* create_table (uint64 guest_paddr, uint64 host_paddr, uint64 flags) {
             new_table_ptr = alloc_pages(1);
             *entry = create_entry(new_table_ptr, PTE_V);
         }
-
-
     }
+
+    uint64* entry = entry_by_addr((Table *)new_table_ptr, guest_paddr, 0);
+    *entry = create_entry(host_paddr, flags | PTE_V | PTE_U);
 
     return (Table *)guest_table_ptr;
 }
