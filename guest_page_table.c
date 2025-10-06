@@ -1,6 +1,7 @@
 #include "types.h"
 #include "alloc.h"
 #include "guest_page_table.h"
+#include "guest_kernel.h"
 #include "print.h"
 
 #define GET_PPN(paddr, flags)  (((paddr) >> PPN_SHIFT << PTE_PPN_SHIFT) | (flags))
@@ -26,6 +27,10 @@ uint64* entry_by_addr(Table *table, uint64 guest_paddr, uint8 level) {
     // Shift by the offset and get 9 bits.
     uint64 index = (guest_paddr >> (12 + 9 * level)) & 0x1ff;
     return &table->entry[index];
+}
+
+uint64 hgatp(uint64 guest_table_ptr) {
+    return ((uint64)9 << 60 | guest_table_ptr >> PPN_SHIFT);
 }
 
 Table* create_table (uint64 guest_paddr, uint64 host_paddr, uint64 flags) {

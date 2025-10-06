@@ -10,8 +10,9 @@ extern uint8 __stack;
 extern uint8 __heap;
 extern uint8 __heap_end; 
 
-extern const uint8 _binary_guest_kernel_guest_o_start;
-extern const uint8 _binary_guest_kernel_guest_o_end;
+extern unsigned char guest_kernel_guest_bin[];
+extern unsigned int guest_kernel_guest_bin_len;
+
 
 
 void test_hypervisor() {
@@ -43,15 +44,33 @@ int main() {
 
 
     uint64 guest_entry = 0x100000;
-   
-    Table* table = create_table(0x10000, 0x10000, PTE_R | PTE_W | PTE_X);
+    uint64 kernel = alloc_pages(1);
+
+    uint8 *dst = (uint8 *)kernel;
+    for(int i = 0; i < guest_kernel_guest_bin_len; i++) {
+        dst[i] = guest_kernel_guest_bin[i];
+    }
+
+    Table* table = create_table(guest_entry, kernel, PTE_R | PTE_W | PTE_X);
     
-     print_hex((uint64) table);    
+
+
     // print_hex(paddr1);    
     // test_hypervisor();
 
-    while(1) {
+    uint64 hstatus = 0;
+    hstatus |= (uint64)2 << 32; // VSXL: XLEN for VS-mode (64-bit)
+    hstatus |= (uint64)1 << 7; // SPV: Supervisor Previous Virtualization mode (HS-mode)
 
-    }
+    print_hex(hstatus);
+    print_hex(hgatp((uint64) table));    
+    print_hex(guest_entry);
+    uint64 sepc;
+
+    asm volatile("csrw hstatus, %0" : : "r"(hstatus));
+    asm volatile("csrw hgatp, %0" : : "r"(hgatp((uint64)table)));
+    asm volatile("csrw sepc, %0" : : "r"(guest_entry));
+    asm volatile("csrr %0, sepc" : : "r"(sepc));
+    asm volatile("sret");
     return 0;
 }

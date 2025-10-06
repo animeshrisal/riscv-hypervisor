@@ -17,5 +17,5 @@ typedef struct Table {
 
 Table* create_table (uint64 guest_paddr, uint64 host_paddr, uint64 flags);
 uint64* entry_by_addr(Table *table, uint64 guest_paddr, uint8 level);
-
+uint64 hgatp(uint64 guest_table_ptr);
 #endif
