@@ -2,11 +2,11 @@
 #define GUEST_PAGE_TABLE_H
 #include "types.h"
 
-#define PTE_V 1 << 0
-#define PTE_R 1 << 1
-#define PTE_W 1 << 2
-#define PTE_X 1 << 3
-#define PTE_U 1 << 4
+#define PTE_V 1ULL << 0
+#define PTE_R 1ULL << 1
+#define PTE_W 1ULL << 2
+#define PTE_X 1ULL << 3
+#define PTE_U 1ULL << 4
 
 #define PPN_SHIFT 12
 #define PTE_PPN_SHIFT 10
