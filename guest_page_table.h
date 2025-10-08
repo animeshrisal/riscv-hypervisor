@@ -7,7 +7,7 @@
 #define PTE_W 1ULL << 2
 #define PTE_X 1ULL << 3
 #define PTE_U 1ULL << 4
-
+#define PTE_ALL PTE_V | PTE_R | PTE_W | PTE_X | PTE_U
 #define PPN_SHIFT 12
 #define PTE_PPN_SHIFT 10
 
