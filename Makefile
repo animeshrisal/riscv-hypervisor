@@ -8,3 +8,6 @@ hypervisor: $(OBJS) $(DEPS)
 	$(CC) $(CFLAGS) -c main.c
 	$(CC) $(CFLAGS) -c start.S
 	$(CC) -g -ffreestanding -fno-common -mno-relax -nostdlib -mcmodel=medany   -Wl,-T hypervisor.ld $(OBJS) -o hypervisor.elf
+
+clean:
+	-@rm -f *.o *.bin *.elf guest_kernel/guest.o
