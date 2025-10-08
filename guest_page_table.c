@@ -48,11 +48,7 @@ Table* create_table (uint64 guest_paddr, uint64 host_paddr, uint64 flags) {
         } else {
             print_string("Is not valid");
             print_string("Creating new table....");
-
             uint64 next_table = alloc_pages(1);
-
-            for (uint8 j=0;j<512;j++) ((uint64*)next_table)[j]=0;
-            
             *entry = create_entry(next_table, PTE_V);
             current_table_ptr = next_table;
         }
