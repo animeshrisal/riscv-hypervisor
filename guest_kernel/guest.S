@@ -5,6 +5,10 @@ guest_boot:
     li a6, 0        
     li a0, 'A'      
     ecall          
+    li a0, 'B'      
+    ecall  
+    li a0, 'C'      
+    ecall  
 
 halt:
     j halt          # Infinite loop
