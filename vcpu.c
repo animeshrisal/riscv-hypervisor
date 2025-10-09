@@ -44,7 +44,7 @@ void run_cpu(VCpu *cpu) {
     asm volatile("csrw hedeleg, %0" : : "r"(cpu->hedeleg));
     asm volatile("csrw hgatp, %0" : : "r"(cpu->hgatp));
     asm volatile("csrw sepc, %0" : : "r"(cpu->sepc));
-    asm volatile("csrw sscratch, %0" : : "r"(cpu));
+    asm volatile("csrw sscratch, %0" : : "r"((uint64)cpu));
 
     asm volatile("sret");
 }
