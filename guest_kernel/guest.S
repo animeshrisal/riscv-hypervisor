@@ -1,8 +1,10 @@
 .section .text
 .global guest_boot
 guest_boot:
-    addi a0, x0, 1
-    addi a0, a0, 1
-    add a5, a5, a0
-    add a6, a6, a0
-    j guest_boot
+    li a7, 1        
+    li a6, 0        
+    li a0, 'A'      
+    ecall          
+
+halt:
+    j halt          # Infinite loop
