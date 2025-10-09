@@ -2,6 +2,5 @@
 
 #include "types.h"
 
-uint64 trap_handler(void);
-
+uint64 handle_trap(void);
 #endif

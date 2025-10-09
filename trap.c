@@ -1,11 +1,14 @@
 #include "print.h"
 #include "types.h"
 #include "riscv.h"
+#include "vcpu.h"
 
-uint64 trap_handler() {
-    uint64 x;
-    print_string("Error");
-    asm volatile("csrr %0, scause" : "=r"(x));
-    print_hex(x);
+uint64 handle_trap(VCpu *vcpu) {
+
+    if(r_scause() == 10) {
+    print_string("e call from guest");
+    putchar((uint64)vcpu->a0);
+    }
     return 0;
 }
+

@@ -5,4 +5,4 @@ set -xue
 QEMU=qemu-system-riscv64
 
 # Start QEMU
-$QEMU -machine virt -cpu rv64,h=true -bios default -smp 1 -m 128M -nographic -d cpu_reset,unimp,guest_errors,int -D qemu.log -serial mon:stdio --no-reboot -kernel hypervisor.elf
+$QEMU -machine virt -bios default -smp 1 -m 128M -nographic -d cpu_reset,unimp,guest_errors,int -D qemu.log -serial mon:stdio --no-reboot -kernel hypervisor.elf
